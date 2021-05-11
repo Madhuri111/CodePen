@@ -5,7 +5,8 @@ import 'codemirror/theme/material.css'
 import 'codemirror/mode/xml/xml'  //html 
 import 'codemirror/mode/javascript/javascript'
 import 'codemirror/mode/css/css'
-import {Controlled as ControlledMode } from 'react-codemirror2'  //for controlling editor
+// import CodeMirror from 'react-codemirror2'
+import { Controlled as ControlledMode } from 'react-codemirror2'  //for controlling editor
 // import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCompressAlt, faExpandAlt } from '@fortawesome/free-solid-svg-icons'
@@ -19,38 +20,53 @@ export default function Components(props) {
         displayName,
         value,
         onChange
-    }=props
+    } = props
 
-    function handleChange(editor,data,value)
-    {
+    function handleChange(editor, data, value) {
         onChange(value)
     }
-    const [open,setOpen]=useState(true)
+    const [open, setOpen] = useState(true)
+  
+
     return (
-        <div className={`editor-container ${open ? '' : 'collapsed'}`}>
-            <div className="editor-title"> 
-            {displayName}
-            <button       type="button"   onClick={()=>setOpen(prevOpen=>!prevOpen)}>
-            
-            {/* <i class="bi bi-arrows-angle-expand" />  */}
-            <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} />
-                {/* above line is for opening if its open so that we can change icon */}
-            </button>
+
+
+
+
+        <div className={`   editor-container ${open ? '' : 'collapsed'}`}>
+            <div className="editor-title">
+                {displayName}
+ 
+                <button className="expand-collapse-btn" type="button" onClick={() => setOpen(prevOpen => !prevOpen)}>
+
+                    {/* <i class="bi bi-arrows-angle-expand" />  */}
+                    <FontAwesomeIcon icon={open ? faCompressAlt : faExpandAlt} />
+                    {/* above line is for opening if its open so that we can change icon */}
+                </button>
             </div>
             <ControlledMode 
+
                 value={value}
-                onBeforeChange = {handleChange}
+                onBeforeChange={handleChange}
                 options={{
-                className:"code-inside",
-                lineWrapping:true,
-                lint:true,
-                mode:language,
-                theme:'material',
-                lineNumbers:true
+                    className: "code-mirror-wrapper",
+                    lineWrapping: true,
+                    lint: true,
+                    mode: language,
+                    theme: 'material',                    
+                    // caretColor: "#0e9",
+                    // borderLeftColor: "#0e9",
+                    // display: "inline-block",
+                    lineNumbers: true,
+                    smartIndent: true,
+                    indentWithTabs: true,
+                    styleActiveLine: true,
+                    matchBrackets: true,
+
 
                 }}
             />
-             
+
         </div>
     )
 }

@@ -9,13 +9,14 @@ import History from './History'
 function App() {
 
   const [displayContent, setDisplayContent] = useState('')
-  const [htmlContent, setHtmlContent] = History('html','')
-  const [cssContent, setCssContent] = History('css','')
-  const [jsContent, setJsContent] = History('js','')
+  const [htmlContent, setHtmlContent] = History('html', '')
+  const [cssContent, setCssContent] = History('css', '')
+  const [jsContent, setJsContent] = History('js', '')
 
 
-  useEffect(() => {setDisplayContent(
-    `
+  useEffect(() => {
+    setDisplayContent(
+      `
       <html>
         <body>
           ${htmlContent}
@@ -34,12 +35,14 @@ function App() {
 
   return (
     <>
-      <div className="top pane">
-        <Components displayName="HTML" language="xml" value={htmlContent} onChange={setHtmlContent} />
-        <Components displayName="CSS" language="css" value={cssContent} onChange={setCssContent} />
-        <Components displayName="Javascript" language="javascript" value={jsContent} onChange={setJsContent} />
+      <div className="pane top-pane">
+        {/* <div className="first-class"> */}
+          <Components displayName="HTML" language="xml" value={htmlContent} onChange={setHtmlContent} />
+          <Components displayName="CSS" language="css" value={cssContent} onChange={setCssContent} />
+          <Components displayName="Javascript" language="javascript" value={jsContent} onChange={setJsContent} />
+        {/* </div> */}
       </div>
-      <div className="pane ">
+      <div className="pane bottom-pane">
         <iframe srcDoc={displayContent} title="output" sandbox="allow-scripts" height="100%" width="100%" frameBorder="0">
         </iframe>
       </div>
